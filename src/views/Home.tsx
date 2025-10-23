@@ -1,38 +1,38 @@
-import React,{useState} from 'react'
-import { Pressable, Text, View,StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { Pressable, Text, View, StyleSheet } from 'react-native'
 import Formulario from '../components/Formulario'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+export const Home = () => {
 
-export const Home=()=> {
+  const [modalVisible, setmodalVisible] = useState(false)
 
-    const [modalVisible, setmodalVisible]= useState(false)
-
-    const cerrarModal = ()=>{
-        setmodalVisible(false)
-    }
+  const cerrarModal = () => {
+    setmodalVisible(false)
+  }
 
   return (
-    <View style = {styles.container}>
-        <Text style ={styles.titulo}>Administracion de citas</Text>
-        <Text style = {styles.tituloBold}>Veterinaria</Text>
-        <Pressable 
-        style = {styles.btnNuevaCita}
-        onPress ={()=> setmodalVisible(true)}
-        
-        > 
-            <Text style = {styles.btnTextoNuevaCita}>Nueva cita</Text>
-        </Pressable>
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Administracion de citas</Text>
+      <Text style={styles.tituloBold}>Veterinaria</Text>
+      <Pressable
+        style={styles.btnNuevaCita}
+        onPress={() => setmodalVisible(true)}
 
-        {modalVisible &&
+      >
+        <Text style={styles.btnTextoNuevaCita}>Nueva cita</Text>
+      </Pressable>
+
+      {modalVisible &&
         (
-            <Formulario
-            cerrarModal = {cerrarModal}
-            ></Formulario>
+          <Formulario
+            cerrarModal={cerrarModal}
+          ></Formulario>
         )
       }
-      </View>
-      
-    
+    </View>
+
+
   )
 }
 
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
     flex: 1
   },
   titulo: {
-      textAlign: 'center',
-      fontSize: 30,
-      color: '#374151',
-      fontWeight: '600'
+    textAlign: 'center',
+    fontSize: 30,
+    color: '#374151',
+    fontWeight: '600'
   },
   tituloBold: {
     fontWeight: '900',

@@ -1,88 +1,92 @@
 import React, { useState } from 'react'
-import { Modal, Pressable, ScrollView, Text,TextInput,View,StyleSheet} from 'react-native'
+import { Modal, Pressable, ScrollView, Text, TextInput, View, StyleSheet } from 'react-native'
 import DateTimePicker, { DateType, useDefaultStyles } from 'react-native-ui-datepicker';
-export default function Formulario({cerrarModal}:any) {
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+export default function Formulario({ cerrarModal }: any) {
 
     const [paciente, setPaciente] = useState('')
     const [propietario, setPropietario] = useState('')
     const [email, setemail] = useState('')
     const [telefono, setTelefono] = useState('')
-   const defaultStyles = useDefaultStyles();
-  const [selected, setSelected] = useState<DateType>();
+    const defaultStyles = useDefaultStyles();
+    const [selected, setSelected] = useState<DateType>();
 
-  return (
+    return (
 
-    <Modal
-    animationType = 'slide' 
-    visible = {true}
-    
-    >
-        <ScrollView style={styles.contenido}>
-            <Text style={styles.titulo}>Nueva cita</Text>
+        <Modal 
+            animationType='slide'
+            visible={true}
 
-            <Pressable
-            style={styles.btnCancelar}
-            onPress={()=>cerrarModal()}
-            >
-                <Text style={styles.btnCancelarTexto}>X Cancelar</Text>
-            </Pressable>
+        >
+            <ScrollView style={styles.contenido}>
+               <SafeAreaView>
+                <Text style={styles.titulo}>Nueva cita</Text>
 
-            <View>
-                <Text style={styles.label}>Nombre Paciente</Text>
-                <TextInput
-                style={styles.input}
-                placeholder='Nombre del paciente'
-                placeholderTextColor={'#666'}
-                ></TextInput>
-            </View>
+                <Pressable
+                    style={styles.btnCancelar}
+                    onPress={() => cerrarModal()}
+                >
+                    <Text style={styles.btnCancelarTexto}>X Cancelar</Text>
+                </Pressable>
 
-            <View>
-                <Text style={styles.label}>Nombre Propietario</Text>
-
-                <TextInput
-                style={styles.input}
-                placeholder='Nombre Propietario'
-                placeholderTextColor={'#666'}
-                ></TextInput>
-            </View>
-
-            <View>
-                <Text style={styles.label}> Email</Text>
-
-                <TextInput
-                style={styles.input}
-                placeholder='Email del propietario'
-                placeholderTextColor={'#666'}
-                ></TextInput>
-            </View>
-            <View>
-                <Text style={styles.label}>Telefono propietario</Text>
-
-                <TextInput
-                style={styles.input}
-                placeholder='Telefono del propietario'
-                placeholderTextColor={'#666'}
-                ></TextInput>
-            </View>
-
-            <View>
-                <Text style={styles.label}>Fecha Cita</Text>
-
-                <View style={styles.fechaContenedor}>
-                    <DateTimePicker
-      mode="single"
-      date={selected}
-      onChange={({ date }) =>  setSelected(date)}
-      styles={defaultStyles}
-    />
-
+                <View >
+                    <Text style={styles.label}>Nombre Paciente</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Nombre del paciente'
+                        placeholderTextColor={'#666'}
+                    ></TextInput>
                 </View>
 
-            </View>
-        </ScrollView>
-        
-    </Modal>
-  )
+                <View>
+                    <Text style={styles.label}>Nombre Propietario</Text>
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Nombre Propietario'
+                        placeholderTextColor={'#666'}
+                    ></TextInput>
+                </View>
+
+                <View>
+                    <Text style={styles.label}> Email</Text>
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Email del propietario'
+                        placeholderTextColor={'#666'}
+                    ></TextInput>
+                </View>
+                <View>
+                    <Text style={styles.label}>Telefono propietario</Text>
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder='Telefono del propietario'
+                        placeholderTextColor={'#666'}
+                    ></TextInput>
+                </View>
+
+                <View>
+                    <Text style={styles.label}>Fecha Cita</Text>
+
+                    <View style={styles.fechaContenedor}>
+                        <DateTimePicker
+                            mode="single"
+                            date={selected}
+                            onChange={({ date }) => setSelected(date)}
+                            styles={defaultStyles}
+                        />
+
+                    </View>
+
+                </View>
+                </SafeAreaView>
+            </ScrollView>
+
+        </Modal>
+    )
 }
 
 
@@ -120,7 +124,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 30,
     },
     label: {
-        color: '#FFF',  
+        color: '#FFF',
         marginBottom: 10,
         marginTop: 15,
         fontSize: 20,
