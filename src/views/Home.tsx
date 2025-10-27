@@ -6,6 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export const Home = () => {
 
   const [modalVisible, setmodalVisible] = useState(false)
+  const [pacientes, setPacientes] = useState<any[]>([])
+  const [paciente, setPaciente] = useState({})
 
   const cerrarModal = () => {
     setmodalVisible(false)
@@ -15,6 +17,13 @@ export const Home = () => {
     <View style={styles.container}>
       <Text style={styles.titulo}>Administracion de citas</Text>
       <Text style={styles.tituloBold}>Veterinaria</Text>
+      
+      {pacientes.length === 0 ?
+        <Text style={styles.noPacientes}>No hay pacientes</Text>
+        :
+        <Text style={styles.noPacientes}>Componente pendiente</Text>
+      }
+      
       <Pressable
         style={styles.btnNuevaCita}
         onPress={() => setmodalVisible(true)}
@@ -26,7 +35,12 @@ export const Home = () => {
       {modalVisible &&
         (
           <Formulario
+            modalVisible={modalVisible}
             cerrarModal={cerrarModal}
+            pacientes={pacientes}
+            setPacientes={setPacientes}
+            paciente={paciente}
+            setPaciente={setPaciente}
           ></Formulario>
         )
       }
