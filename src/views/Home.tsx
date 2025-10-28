@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
-import { Pressable, Text, View, StyleSheet } from 'react-native'
+import { Pressable, Text, View, StyleSheet,Modal, FlatList } from 'react-native'
 import Formulario from '../components/Formulario'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import InformacionPaciente from '../components/InformacionPaciente';
+import Paciente from '../components/Paciente';
+
 
 export const Home = () => {
 
   const [modalVisible, setmodalVisible] = useState(false)
   const [pacientes, setPacientes] = useState<any[]>([])
   const [paciente, setPaciente] = useState({})
+  const [modalpaciente, setModalPaciente]= useState(false)
 
   const cerrarModal = () => {
     setmodalVisible(false)
@@ -18,11 +22,34 @@ export const Home = () => {
       <Text style={styles.titulo}>Administracion de citas</Text>
       <Text style={styles.tituloBold}>Veterinaria</Text>
       
-      {pacientes.length === 0 ?
+      {pacientes.length === 0 ? (
         <Text style={styles.noPacientes}>No hay pacientes</Text>
-        :
-        <Text style={styles.noPacientes}>Componente pendiente</Text>
-      }
+      ): (
+
+        <FlatList
+        style ={styles.listado}
+        data ={pacientes}
+        keyExtractor={(item)=>item.id}
+        renderItem={({item})=>{
+
+          return(
+            <Paciente
+            item={item}
+            setModalVisible={setmodalVisible}
+            setPaciente ={setPaciente}
+            setModalPaciente={setModalPaciente}
+            >
+
+            </Paciente>
+          )
+        }}
+        
+        >
+
+
+        </FlatList>
+
+      )}
       
       <Pressable
         style={styles.btnNuevaCita}
@@ -44,6 +71,24 @@ export const Home = () => {
           ></Formulario>
         )
       }
+
+      <Modal   
+      visible ={modalpaciente}
+      animationType = 'slide'
+      >
+
+        <InformacionPaciente
+          paciente= {paciente}
+          setpaciente= {setPaciente}
+          setModalPaciente= {setModalPaciente}
+        >
+        
+
+        </InformacionPaciente>
+
+      
+
+      </Modal>
     </View>
 
 

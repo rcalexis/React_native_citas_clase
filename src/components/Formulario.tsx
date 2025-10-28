@@ -9,10 +9,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-import DateTimePicker, {
-  DateType,
-  useDefaultStyles,
-} from "react-native-ui-datepicker";
+import DateTimePicker, { DateType } from "react-native-ui-datepicker";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Formulario({
@@ -23,24 +20,21 @@ export default function Formulario({
   paciente: pacienteObj,
   setPaciente: setPacienteObj,
 }: any) {
-  const [paciente, setPaciente] = useState("");
+  const [nombrePaciente, setNombrePaciente] = useState("");
   const [propietario, setPropietario] = useState("");
-  const [email, setemail] = useState("");
+  const [email, setEmail] = useState("");
   const [telefono, setTelefono] = useState("");
-  const defaultStyles = useDefaultStyles();
   const [selected, setSelected] = useState<DateType>();
 
   const handleCita = () => {
-    if (
-      [paciente, propietario, email, telefono, selected].some((campo) => !campo)
-    ) {
+    if ([nombrePaciente, propietario, email, telefono, selected].some((campo) => !campo)) {
       Alert.alert("Error", "Llena todos los campos");
       return;
     }
 
     const nuevoPaciente = {
       id: Date.now(),
-      paciente,
+      paciente: nombrePaciente,
       propietario,
       email,
       telefono,
@@ -49,11 +43,15 @@ export default function Formulario({
 
     setPacientes([nuevoPaciente, ...pacientes]);
 
-    setPaciente("");
+    setPacientes(nuevoPaciente);
+
+    // Limpiar campos
+    setNombrePaciente("");
     setPropietario("");
-    setemail("");
+    setEmail("");
     setTelefono("");
     setSelected(undefined);
+
     cerrarModal();
   };
 
@@ -61,9 +59,9 @@ export default function Formulario({
     <Modal animationType="slide" visible={modalVisible}>
       <ScrollView style={styles.contenido}>
         <SafeAreaView>
-          <Text style={styles.titulo}>Nueva cita</Text>
+          <Text style={styles.titulo}>Nueva Cita</Text>
 
-          <Pressable style={styles.btnCancelar} onPress={() => cerrarModal()}>
+          <Pressable style={styles.btnCancelar} onPress={cerrarModal}>
             <Text style={styles.btnCancelarTexto}>X Cancelar</Text>
           </Pressable>
 
@@ -72,56 +70,53 @@ export default function Formulario({
             <TextInput
               style={styles.input}
               placeholder="Nombre del paciente"
-              placeholderTextColor={"#666"}
-              value={paciente}
-              onChangeText={setPaciente}
-            ></TextInput>
+              placeholderTextColor="#666"
+              value={nombrePaciente}
+              onChangeText={setNombrePaciente}
+            />
           </View>
 
           <View>
             <Text style={styles.label}>Nombre Propietario</Text>
-
             <TextInput
               style={styles.input}
-              placeholder="Nombre Propietario"
-              placeholderTextColor={"#666"}
+              placeholder="Nombre del propietario"
+              placeholderTextColor="#666"
               value={propietario}
               onChangeText={setPropietario}
-            ></TextInput>
+            />
           </View>
 
           <View>
-            <Text style={styles.label}> Email</Text>
-
+            <Text style={styles.label}>Email</Text>
             <TextInput
               style={styles.input}
               placeholder="Email del propietario"
-              placeholderTextColor={"#666"}
+              placeholderTextColor="#666"
               value={email}
-              onChangeText={setemail}
-            ></TextInput>
+              onChangeText={setEmail}
+            />
           </View>
-          <View>
-            <Text style={styles.label}>Telefono propietario</Text>
 
+          <View>
+            <Text style={styles.label}>Teléfono propietario</Text>
             <TextInput
               style={styles.input}
-              placeholder="Telefono del propietario"
-              placeholderTextColor={"#666"}
+              placeholder="Teléfono del propietario"
+              placeholderTextColor="#666"
               value={telefono}
               onChangeText={setTelefono}
-            ></TextInput>
+              keyboardType="phone-pad"
+            />
           </View>
 
           <View>
             <Text style={styles.label}>Fecha Cita</Text>
-
             <View style={styles.fechaContenedor}>
               <DateTimePicker
                 mode="single"
                 date={selected}
                 onChange={({ date }) => setSelected(date)}
-                styles={defaultStyles}
               />
             </View>
           </View>
@@ -129,8 +124,6 @@ export default function Formulario({
           <Pressable style={styles.btnNuevaCita} onPress={handleCita}>
             <Text style={styles.btnNuevaCitaTexto}>Guardar Cita</Text>
           </Pressable>
-
-
         </SafeAreaView>
       </ScrollView>
     </Modal>
@@ -149,9 +142,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     color: "#FFF",
   },
-  tituloBold: {
-    fontWeight: "900",
-  },
   btnCancelar: {
     marginVertical: 30,
     backgroundColor: "#5827A4",
@@ -166,10 +156,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textTransform: "uppercase",
   },
-  campo: {
-    marginTop: 10,
-    marginHorizontal: 30,
-  },
   label: {
     color: "#FFF",
     marginBottom: 10,
@@ -181,9 +167,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     padding: 15,
     borderRadius: 10,
-  },
-  sintomasInput: {
-    height: 100,
   },
   fechaContenedor: {
     backgroundColor: "#FFF",
