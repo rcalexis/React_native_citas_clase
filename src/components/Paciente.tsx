@@ -1,38 +1,61 @@
 import React from 'react'
 
-import { View, StyleSheet,Text, Pressable } from 'react-native'
-import { SafeAreaView} from 'react-native-safe-area-context'
+import { View, StyleSheet, Text, Pressable } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { formatearFecha } from '../helpers'
 
 
 
 export default function Paciente(
-    {item,setModalVisible,setModalPaciente, setpaciente}:any
+    { item, setModalVisible, setModalPaciente, setpaciente }: any
 ) {
 
-    const {paciente,fecha,id}= item
-  return (
+    const { paciente, fecha, id } = item
+    return (
 
-    <Pressable>
+        <Pressable>
 
-        <View>
+            <View style={styles.contenedor}>
 
-            <Text>
-                Paciente:
-            </Text>
+                <Text style={styles.label}>
+                    Paciente:
+                </Text>
 
-            <Text>
-                {paciente}
-            </Text>
+                <Text style={styles.texto}>
+                    {paciente}
+                </Text>
 
-            <Text>
-                {formatearFecha(fecha)}
-            </Text>
+                <Text style={styles.fecha}>
+                    {formatearFecha(fecha)}
+                </Text>
 
-        </View>
 
-    </Pressable>
-  )
+
+                 <View style={styles.contenedor}>
+
+                <Pressable style={[styles.btn, styles.btnEditar]}>
+                    
+                    <Text style={styles.btnTexto}>
+                        Editar 
+                    </Text>
+
+                </Pressable>
+
+                <Pressable style={[styles.btn, styles.btnEliminar]} >
+
+                    <Text style={styles.btnTexto}>
+                        Eliminar
+                    </Text>
+
+                </Pressable>
+            </View>
+
+            </View>
+
+           
+
+        </Pressable>
+    )
 }
 
 

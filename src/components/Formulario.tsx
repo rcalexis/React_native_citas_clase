@@ -33,7 +33,7 @@ export default function Formulario({
     }
 
     const nuevoPaciente = {
-      id: Date.now(),
+      id: Date.now(),   // con esto verificamos si es un opaciente nuevo o un opaciente ya existennte 
       paciente: nombrePaciente,
       propietario,
       email,
