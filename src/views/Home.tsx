@@ -25,8 +25,23 @@ export const Home = () => {
   };
 
   const pacienteEditar = (pacienteEditar: any) => {
-    setPaciente(pacienteEditar);
-    setmodalVisible(true); 
+
+      Alert.alert(
+      "¿Deseas editar este paciente?",
+      "Un paciente editado no se puede restablecer",
+      [
+        { text: "Cancelar"},
+        {
+          text: "Si, Editar",
+          onPress: () => {
+             setPaciente(pacienteEditar);
+              setmodalVisible(true); 
+          },
+        },
+      ]
+    );
+    // setPaciente(pacienteEditar);
+    // setmodalVisible(true); 
   };
 
   const pacienteEliminar = (id: number) => {
@@ -34,7 +49,7 @@ export const Home = () => {
       "¿Deseas eliminar este paciente?",
       "Un paciente eliminado no se puede recuperar",
       [
-        { text: "Cancelar", style: "cancel" },
+        { text: "Cancelar"},
         {
           text: "Si, Eliminar",
           onPress: () => {
@@ -72,6 +87,7 @@ export const Home = () => {
               <Paciente
                 item={item}
                 setModalPaciente={setModalPaciente}
+                setmodalVisible={setmodalVisible}
                 setPaciente={setPaciente}
                 pacienteEditar={pacienteEditar}
                 pacienteEliminar={pacienteEliminar}

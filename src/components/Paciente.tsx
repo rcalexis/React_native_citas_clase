@@ -10,6 +10,9 @@ export default function Paciente({
   pacienteEliminar, 
 }: any) {
   const { paciente, fecha, id } = item;
+
+
+  
   return (
    
     <Pressable
